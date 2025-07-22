@@ -1363,7 +1363,8 @@ if is_re8 then
 end
 
 local function on_pre_player_camera_update(args)
-    last_camera_update_args = args
+    -- Create a copy of args to prevent possible race condition of another hook or overwrite
+    last_camera_update_args = {args[1], args[2]}
 
     if not vrmod:is_hmd_active() then
         return
